@@ -4,10 +4,10 @@ import { ArrowUp } from "lucide-react";
 const ScrollButton = () => {
   const [visible, setVisible] = useState(false);
 
-  // Use useEffect to properly handle event listener
   useEffect(() => {
     const toggleVisibility = () => {
-      if (window.pageYOffset > 300) {
+      // Modern way to check scroll position
+      if (window.scrollY > 300) {
         setVisible(true);
       } else {
         setVisible(false);
@@ -15,11 +15,7 @@ const ScrollButton = () => {
     };
 
     window.addEventListener("scroll", toggleVisibility);
-
-    // Cleanup event listener on component unmount
-    return () => {
-      window.removeEventListener("scroll", toggleVisibility);
-    };
+    return () => window.removeEventListener("scroll", toggleVisibility);
   }, []);
 
   const scrollToTop = () => {
@@ -29,13 +25,22 @@ const ScrollButton = () => {
   return (
     <button
       onClick={scrollToTop}
-      className={`fixed bottom-8 right-8 p-3 rounded-full bg-orange-500 hover:bg-orange-600 text-white shadow-lg transition-all duration-300 ease-in-out transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:ring-opacity-50 ${
-        visible
-          ? "opacity-100 translate-y-0"
-          : "opacity-0 translate-y-8 pointer-events-none"
-      }`}
-      aria-label="Scroll to top">
-      <ArrowUp className="w-6 h-6" />
+      className={`fixed bottom-8 right-8 p-3 rounded-full transition-all duration-500 ease-in-out transform z-[40]
+        /* Light Mode Styles */
+        bg-orange-500 hover:bg-orange-600 text-white shadow-lg
+        /* Dark Mode Styles */
+        dark:bg-orange-600 dark:hover:bg-orange-500 dark:border dark:border-orange-400/20
+        /* Cool Neon Glow in Dark Mode */
+        dark:shadow-[0_0_20px_rgba(249,115,22,0.4)]
+        /* Animation States */
+        ${visible
+          ? "opacity-100 translate-y-0 scale-100"
+          : "opacity-0 translate-y-10 scale-50 pointer-events-none"
+        }
+        hover:scale-110 active:scale-90 focus:outline-none focus:ring-2 focus:ring-orange-400`}
+      aria-label="Scroll to top"
+    >
+      <ArrowUp className="w-6 h-6 animate-bounce" />
     </button>
   );
 };

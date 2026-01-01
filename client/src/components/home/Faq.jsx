@@ -20,7 +20,7 @@ const FAQ = () => {
       title: "Booking Process",
       icon: Calendar,
       color: "text-blue-500",
-      bgColor: "bg-blue-50",
+      bgColor: "bg-blue-50 dark:bg-blue-900/20", // Added dark variant
       questions: [
         {
           question: "How do I make a car reservation?",
@@ -38,7 +38,7 @@ const FAQ = () => {
       title: "Rental Requirements",
       icon: Car,
       color: "text-orange-500",
-      bgColor: "bg-orange-50",
+      bgColor: "bg-orange-50 dark:bg-orange-900/20",
       questions: [
         {
           question: "What documents do I need to rent a car?",
@@ -56,7 +56,7 @@ const FAQ = () => {
       title: "Payments & Insurance",
       icon: CreditCard,
       color: "text-green-500",
-      bgColor: "bg-green-50",
+      bgColor: "bg-green-50 dark:bg-green-900/20",
       questions: [
         {
           question: "What payment methods are accepted?",
@@ -74,7 +74,7 @@ const FAQ = () => {
       title: "Policies & Protection",
       icon: Shield,
       color: "text-purple-500",
-      bgColor: "bg-purple-50",
+      bgColor: "bg-purple-50 dark:bg-purple-900/20",
       questions: [
         {
           question: "What is your fuel policy?",
@@ -95,25 +95,27 @@ const FAQ = () => {
   };
 
   return (
-    <section className="py-20 bg-white">
+    <section className="bg-white dark:bg-zinc-950 text-gray-900 dark:text-zinc-100 transition-colors duration-300 py-20">
       <div className="container mx-auto px-4 max-w-6xl">
+        {/* Header Section */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-orange-100 rounded-full mb-4">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-orange-100 dark:bg-orange-900/30 rounded-full mb-4">
             <HelpCircle className="w-5 h-5 text-orange-500" />
-            <span className="text-orange-700 font-medium">Need Help?</span>
+            <span className="text-orange-700 dark:text-orange-400 font-medium">Need Help?</span>
           </div>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 dark:text-white">
             Frequently Asked Questions
           </h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">
+          <p className="text-gray-600 dark:text-zinc-400 max-w-2xl mx-auto">
             Find quick answers to common questions about our car rental services
           </p>
         </motion.div>
 
+        {/* FAQ Grid */}
         <div className="grid md:grid-cols-2 gap-8">
           {faqCategories.map((category, categoryIndex) => (
             <motion.div
@@ -123,36 +125,37 @@ const FAQ = () => {
               viewport={{ once: true }}
               transition={{ delay: categoryIndex * 0.1 }}
               className="space-y-4">
-              <div
-                className={`flex items-center gap-3 p-4 ${category.bgColor} rounded-lg`}>
+
+              {/* Category Header */}
+              <div className={`flex items-center gap-3 p-4 ${category.bgColor} rounded-lg border border-transparent dark:border-zinc-800`}>
                 <category.icon className={`w-6 h-6 ${category.color}`} />
-                <h3 className="text-xl font-semibold text-gray-800">
+                <h3 className="text-xl font-semibold text-gray-800 dark:text-zinc-200">
                   {category.title}
                 </h3>
               </div>
 
+              {/* Questions */}
               {category.questions.map((item, itemIndex) => {
                 const index = `${categoryIndex}-${itemIndex}`;
                 return (
                   <div
                     key={itemIndex}
-                    className="border border-gray-200 hover:border-orange-500 rounded-lg bg-white transition-colors">
+                    className="border border-gray-200 dark:border-zinc-800 hover:border-orange-500 dark:hover:border-orange-500 rounded-lg bg-white dark:bg-zinc-900 transition-all shadow-sm">
                     <button
                       onClick={() => toggleAccordion(index)}
-                      className="w-full px-6 py-4 flex items-center justify-between text-left">
-                      <span className="text-lg font-medium text-gray-800">
+                      className="w-full px-6 py-4 flex items-center justify-between text-left group">
+                      <span className="text-lg font-medium text-gray-800 dark:text-zinc-200 group-hover:text-orange-500 transition-colors">
                         {item.question}
                       </span>
                       <div
-                        className={`p-2 rounded-full ${
-                          activeIndex === index
-                            ? "bg-orange-100"
-                            : "bg-gray-100"
-                        } transition-colors`}>
+                        className={`p-2 rounded-full transition-colors ${activeIndex === index
+                            ? "bg-orange-100 dark:bg-orange-900/40"
+                            : "bg-gray-100 dark:bg-zinc-800"
+                          }`}>
                         {activeIndex === index ? (
                           <Minus className="w-4 h-4 text-orange-500" />
                         ) : (
-                          <Plus className="w-4 h-4 text-gray-500" />
+                          <Plus className="w-4 h-4 text-gray-500 dark:text-zinc-400" />
                         )}
                       </div>
                     </button>
@@ -165,8 +168,8 @@ const FAQ = () => {
                           exit={{ height: 0, opacity: 0 }}
                           transition={{ duration: 0.3 }}
                           className="overflow-hidden">
-                          <div className="px-6 py-4 bg-orange-50/50 border-t border-gray-200">
-                            <p className="text-gray-600 leading-relaxed whitespace-pre-line">
+                          <div className="px-6 py-4 bg-orange-50/50 dark:bg-zinc-800/50 border-t border-gray-200 dark:border-zinc-800">
+                            <p className="text-gray-600 dark:text-zinc-400 leading-relaxed whitespace-pre-line">
                               {item.answer}
                             </p>
                           </div>
@@ -186,13 +189,13 @@ const FAQ = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="mt-16 relative">
-          <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-orange-600 rounded-2xl opacity-10"></div>
-          <div className="relative bg-white border border-orange-100 rounded-2xl p-8">
+          <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-orange-600 rounded-2xl opacity-10 dark:opacity-5"></div>
+          <div className="relative bg-white dark:bg-zinc-900 border border-orange-100 dark:border-zinc-800 rounded-2xl p-8">
             <div className="max-w-3xl mx-auto text-center">
-              <h3 className="text-2xl font-semibold mb-4">
+              <h3 className="text-2xl font-semibold mb-4 dark:text-white">
                 Still have questions?
               </h3>
-              <p className="text-gray-600 mb-8">
+              <p className="text-gray-600 dark:text-zinc-400 mb-8">
                 Can't find what you're looking for? Our customer support team is
                 here to help you 24/7.
               </p>
@@ -200,14 +203,14 @@ const FAQ = () => {
                 <motion.button
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="flex items-center gap-2 px-6 py-3 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition-colors">
+                  className="flex items-center gap-2 px-6 py-3 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition-colors shadow-lg shadow-orange-500/20">
                   <Mail className="w-5 h-5" />
                   <span>Email Support</span>
                 </motion.button>
                 <motion.button
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="flex items-center gap-2 px-6 py-3 border border-orange-200 text-orange-500 rounded-lg hover:bg-orange-50 transition-colors">
+                  className="flex items-center gap-2 px-6 py-3 border border-orange-200 dark:border-zinc-700 text-orange-500 dark:text-orange-400 rounded-lg hover:bg-orange-50 dark:hover:bg-zinc-800 transition-colors">
                   <Phone className="w-5 h-5" />
                   <span>Call Support</span>
                 </motion.button>

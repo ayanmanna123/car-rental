@@ -1,12 +1,16 @@
-import { createRoot } from "react-dom/client";
-import "./index.css";
-import App from "./App.jsx";
-import { BrowserRouter } from "react-router-dom";
-import ScrollButton from "./components/default/ScrollButton.jsx";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom'; // Added this
+import { ThemeProvider } from 'next-themes';
+import App from './App.jsx';
+import './index.css';
 
-createRoot(document.getElementById("root")).render(
-  <BrowserRouter>
-    <App />
-    <ScrollButton />
-  </BrowserRouter>
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    <BrowserRouter>
+      <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        <App />
+      </ThemeProvider>
+    </BrowserRouter>
+  </React.StrictMode>
 );

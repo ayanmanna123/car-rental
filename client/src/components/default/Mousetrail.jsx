@@ -1,48 +1,106 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 
 const MouseTrail = () => {
+  const canvasRef = useRef(null);
+
   useEffect(() => {
-    const trail = [];
-    const trailSize = 10;
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+    let animationFrameId;
 
-    console.log("Initializing MouseTrail...");
+    // Settings
+    const particles = [];
+    const particleCount = 40;
+    const mouse = { x: null, y: null };
 
-    // Create trail elements
-    for (let i = 0; i < trailSize; i++) {
-      const div = document.createElement("div");
-      div.style.position = "absolute";
-      div.style.width = "10px";
-      div.style.height = "10px";
-      div.style.borderRadius = "50%";
-      div.style.backgroundColor = "red";
-      div.style.opacity = "1";
-      div.style.zIndex = "99999";
-      div.style.pointerEvents = "none";
-      div.style.transform = "translate(-100px, -100px)";
-      document.body.appendChild(div);
-      trail.push(div);
-      console.log(`Trail element ${i} created:`, div);
+    // Set canvas to full screen
+    const resizeCanvas = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+
+    // Particle Class
+    class Particle {
+      constructor(x, y) {
+        this.x = x;
+        this.y = y;
+        this.size = Math.random() * 3 + 1;
+        this.speedX = (Math.random() - 0.5) * 2;
+        this.speedY = (Math.random() - 0.5) * 2;
+        this.color = "#f97316"; // Brand Orange
+        this.opacity = 1;
+      }
+
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if (this.opacity > 0) this.opacity -= 0.02; // Fade out
+      }
+
+      draw() {
+        ctx.save();
+        ctx.globalAlpha = this.opacity;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+
+        // Glow effect
+        ctx.shadowBlur = 15;
+        ctx.shadowColor = this.color;
+        ctx.fillStyle = this.color;
+
+        ctx.fill();
+        ctx.restore();
+      }
     }
 
     const handleMouseMove = (e) => {
-      console.log("Mouse moved:", e.clientX, e.clientY);
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
 
-      for (let i = trailSize - 1; i > 0; i--) {
-        trail[i].style.transform = trail[i - 1].style.transform;
+      // Spawn new particles on move
+      for (let i = 0; i < 3; i++) {
+        particles.push(new Particle(mouse.x, mouse.y));
       }
-      trail[0].style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+    };
+
+    const animate = () => {
+      // Create motion blur trail effect by not fully clearing the canvas
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      for (let i = 0; i < particles.length; i++) {
+        particles[i].update();
+        particles[i].draw();
+
+        // Remove invisible particles
+        if (particles[i].opacity <= 0) {
+          particles.splice(i, 1);
+          i--;
+        }
+      }
+
+      animationFrameId = requestAnimationFrame(animate);
     };
 
     window.addEventListener("mousemove", handleMouseMove);
+    animate();
 
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
-      trail.forEach((div) => div.remove());
-      console.log("Trail elements removed.");
+      window.removeEventListener("resize", resizeCanvas);
+      cancelAnimationFrame(animationFrameId);
     };
   }, []);
 
-  return null;
+  return (
+    <canvas
+      ref={canvasRef}
+      className="fixed inset-0 pointer-events-none z-[9999] opacity-70"
+      style={{ mixBlendMode: "screen" }} // Makes the glow pop in dark mode
+    />
+  );
 };
 
 export default MouseTrail;

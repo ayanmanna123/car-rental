@@ -28,28 +28,28 @@ const About = () => {
       title: "Secure Booking",
       description: "Advanced security measures for safe transactions",
       color: "text-blue-500",
-      bgColor: "bg-blue-50",
+      bgColor: "bg-blue-50 dark:bg-blue-900/20",
     },
     {
       icon: Car,
       title: "Wide Selection",
       description: "Diverse fleet of vehicles for every need",
       color: "text-orange-500",
-      bgColor: "bg-orange-50",
+      bgColor: "bg-orange-50 dark:bg-orange-900/20",
     },
     {
       icon: Users,
       title: "24/7 Support",
       description: "Round-the-clock customer assistance",
       color: "text-green-500",
-      bgColor: "bg-green-50",
+      bgColor: "bg-green-50 dark:bg-green-900/20",
     },
     {
       icon: CreditCard,
       title: "Easy Payments",
       description: "Flexible and secure payment options",
       color: "text-purple-500",
-      bgColor: "bg-purple-50",
+      bgColor: "bg-purple-50 dark:bg-purple-900/20",
     },
   ];
 
@@ -59,35 +59,35 @@ const About = () => {
       title: "Real-time Availability",
       description: "Check car availability instantly with live updates",
       color: "text-indigo-500",
-      bgColor: "bg-indigo-50",
+      bgColor: "bg-indigo-50 dark:bg-indigo-900/20",
     },
     {
       icon: Calendar,
       title: "Flexible Duration",
       description: "Rent cars from hours to months with flexible terms",
       color: "text-pink-500",
-      bgColor: "bg-pink-50",
+      bgColor: "bg-pink-50 dark:bg-pink-900/20",
     },
     {
       icon: CreditCard,
       title: "Integrated Payments",
       description: "Secure payment gateway with multiple options",
       color: "text-yellow-500",
-      bgColor: "bg-yellow-50",
+      bgColor: "bg-yellow-50 dark:bg-yellow-900/20",
     },
     {
       icon: BarChart,
       title: "Admin Analytics",
       description: "Comprehensive dashboards with valuable insights",
       color: "text-teal-500",
-      bgColor: "bg-teal-50",
+      bgColor: "bg-teal-50 dark:bg-teal-900/20",
     },
     {
       icon: PhoneCall,
       title: "24/7 Support",
       description: "Round-the-clock comprehensive customer assistance",
       color: "text-red-500",
-      bgColor: "bg-red-50",
+      bgColor: "bg-red-50 dark:bg-red-900/20",
     },
   ];
 
@@ -99,7 +99,7 @@ const About = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-gray-50 pt-8">
+    <div className="min-h-screen bg-gradient-to-b from-white to-gray-50 dark:from-zinc-950 dark:to-zinc-900 pt-8 transition-colors duration-300">
       {/* Hero Section */}
       <section className="py-16">
         <div className="container mx-auto px-4">
@@ -108,15 +108,15 @@ const About = () => {
             initial="initial"
             whileInView="whileInView"
             className="text-center max-w-3xl mx-auto">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-orange-100 rounded-full mb-6">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-orange-100 dark:bg-orange-900/30 rounded-full mb-6">
               <Star className="w-5 h-5 text-orange-500" />
-              <span className="text-orange-700 font-medium">About Us</span>
+              <span className="text-orange-700 dark:text-orange-400 font-medium">About Us</span>
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">
+            <h1 className="text-4xl md:text-5xl font-bold mb-6 dark:text-white">
               Experience the Best in
               <span className="text-orange-500"> Car Rentals</span>
             </h1>
-            <p className="text-gray-600 text-lg leading-relaxed">
+            <p className="text-gray-600 dark:text-zinc-400 text-lg leading-relaxed">
               Welcome to CarRental, where we redefine the car rental experience.
               Our mission is to provide seamless, reliable, and affordable car
               rentals for everyone, everywhere.
@@ -126,7 +126,7 @@ const About = () => {
       </section>
 
       {/* Mission Section */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-white dark:bg-zinc-950/50">
         <div className="container mx-auto px-4">
           <motion.div
             variants={fadeIn}
@@ -136,9 +136,9 @@ const About = () => {
             <div>
               <div className="flex items-center gap-2 mb-4">
                 <Award className="w-6 h-6 text-orange-500" />
-                <h2 className="text-3xl font-bold">Our Mission</h2>
+                <h2 className="text-3xl font-bold dark:text-white">Our Mission</h2>
               </div>
-              <p className="text-gray-600 leading-relaxed mb-6">
+              <p className="text-gray-600 dark:text-zinc-400 leading-relaxed mb-6">
                 Our mission is to revolutionize the car rental industry by
                 providing a seamless, transparent, and customer-centric
                 experience. We believe in making car rentals accessible,
@@ -158,7 +158,7 @@ const About = () => {
                     transition={{ delay: index * 0.1 }}
                     className="flex items-center gap-2">
                     <CheckCircle className="w-5 h-5 text-orange-500 flex-shrink-0" />
-                    <span className="text-gray-700">{item}</span>
+                    <span className="text-gray-700 dark:text-zinc-300">{item}</span>
                   </motion.li>
                 ))}
               </ul>
@@ -170,11 +170,11 @@ const About = () => {
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
-                  className="bg-gray-50 p-6 rounded-lg text-center group hover:bg-orange-50 transition-colors">
+                  className="bg-gray-50 dark:bg-zinc-900 p-6 rounded-lg text-center group hover:bg-orange-50 dark:hover:bg-orange-900/20 border border-transparent dark:border-zinc-800 transition-all">
                   <h3 className="text-3xl font-bold text-orange-500 mb-2 group-hover:scale-110 transition-transform">
                     {stat.value}
                   </h3>
-                  <p className="text-gray-600">{stat.label}</p>
+                  <p className="text-gray-600 dark:text-zinc-400">{stat.label}</p>
                 </motion.div>
               ))}
             </div>
@@ -192,9 +192,9 @@ const About = () => {
             className="text-center mb-12">
             <div className="flex items-center justify-center gap-2 mb-4">
               <Settings className="w-6 h-6 text-orange-500" />
-              <h2 className="text-3xl font-bold">Key Features</h2>
+              <h2 className="text-3xl font-bold dark:text-white">Key Features</h2>
             </div>
-            <p className="text-gray-600 max-w-2xl mx-auto">
+            <p className="text-gray-600 dark:text-zinc-400 max-w-2xl mx-auto">
               Discover what makes us the preferred choice for car rentals
             </p>
           </motion.div>
@@ -206,10 +206,10 @@ const About = () => {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
-                className={`${feature.bgColor} rounded-lg p-6 hover:scale-105 transition-transform`}>
+                className={`${feature.bgColor} rounded-lg p-6 hover:scale-105 transition-transform border border-transparent dark:border-zinc-800/50`}>
                 <feature.icon className={`w-8 h-8 ${feature.color} mb-4`} />
-                <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
-                <p className="text-gray-600">{feature.description}</p>
+                <h3 className="text-xl font-semibold mb-2 dark:text-zinc-100">{feature.title}</h3>
+                <p className="text-gray-600 dark:text-zinc-400">{feature.description}</p>
               </motion.div>
             ))}
           </div>
@@ -221,8 +221,8 @@ const About = () => {
             whileInView="whileInView"
             className="mt-20">
             <div className="text-center mb-12">
-              <h3 className="text-2xl font-bold mb-4">Advanced Features</h3>
-              <p className="text-gray-600 max-w-2xl mx-auto">
+              <h3 className="text-2xl font-bold mb-4 dark:text-white">Advanced Features</h3>
+              <p className="text-gray-600 dark:text-zinc-400 max-w-2xl mx-auto">
                 Our application is packed with powerful features to ensure a
                 smooth car rental experience
               </p>
@@ -235,17 +235,17 @@ const About = () => {
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
-                  className="bg-white rounded-xl p-6 border border-gray-100 hover:border-orange-200 
+                  className="bg-white dark:bg-zinc-900 rounded-xl p-6 border border-gray-100 dark:border-zinc-800 hover:border-orange-200 dark:hover:border-orange-500/50 
                            transition-all hover:-translate-y-1 group">
                   <div
                     className={`${feature.bgColor} w-12 h-12 rounded-lg flex items-center justify-center 
                                 mb-4 group-hover:scale-110 transition-transform`}>
                     <feature.icon className={`w-6 h-6 ${feature.color}`} />
                   </div>
-                  <h3 className="text-xl font-semibold mb-2">
+                  <h3 className="text-xl font-semibold mb-2 dark:text-zinc-100">
                     {feature.title}
                   </h3>
-                  <p className="text-gray-600">{feature.description}</p>
+                  <p className="text-gray-600 dark:text-zinc-400">{feature.description}</p>
                 </motion.div>
               ))}
             </div>

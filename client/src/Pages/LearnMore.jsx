@@ -28,34 +28,30 @@ const LearnMore = () => {
     {
       icon: CreditCard,
       title: "Affordable Pricing",
-      description:
-        "Competitive rates with no hidden fees. Get the best value for your money.",
+      description: "Competitive rates with no hidden fees. Get the best value for your money.",
       color: "text-blue-500",
-      bgColor: "bg-blue-50",
+      bgColor: "bg-blue-50 dark:bg-blue-900/20",
     },
     {
       icon: MapPin,
       title: "Flexible Locations",
-      description:
-        "Multiple pickup and drop-off points across the city for your convenience.",
+      description: "Multiple pickup and drop-off points across the city for your convenience.",
       color: "text-purple-500",
-      bgColor: "bg-purple-50",
+      bgColor: "bg-purple-50 dark:bg-purple-900/20",
     },
     {
       icon: Car,
       title: "Diverse Fleet",
-      description:
-        "Choose from our wide range of vehicles including luxury, economy, and SUVs.",
+      description: "Choose from our wide range of vehicles including luxury, economy, and SUVs.",
       color: "text-green-500",
-      bgColor: "bg-green-50",
+      bgColor: "bg-green-50 dark:bg-green-900/20",
     },
     {
       icon: Clock,
       title: "24/7 Support",
-      description:
-        "Round-the-clock customer service to assist you anytime, anywhere.",
+      description: "Round-the-clock customer service to assist you anytime, anywhere.",
       color: "text-orange-500",
-      bgColor: "bg-orange-50",
+      bgColor: "bg-orange-50 dark:bg-orange-900/20",
     },
   ];
 
@@ -94,7 +90,7 @@ const LearnMore = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-gray-50 pt-8">
+    <div className="min-h-screen bg-gradient-to-b from-white to-gray-50 dark:from-zinc-950 dark:to-zinc-900 pt-8 transition-colors duration-300">
       {/* Hero Section */}
       <section className="relative py-16 overflow-hidden">
         <div className="container mx-auto px-4 relative z-10">
@@ -103,18 +99,17 @@ const LearnMore = () => {
             initial="initial"
             whileInView="whileInView"
             className="text-center max-w-4xl mx-auto">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-orange-100 rounded-full mb-8">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-orange-100 dark:bg-orange-900/30 rounded-full mb-8">
               <Sparkles className="w-5 h-5 text-orange-500" />
-              <span className="text-orange-700 font-medium">Discover More</span>
+              <span className="text-orange-700 dark:text-orange-400 font-medium">Discover More</span>
             </div>
 
             <h1 className="text-5xl md:text-7xl font-bold mb-8 bg-gradient-to-r from-orange-500 to-purple-600 bg-clip-text text-transparent">
               Experience Premium Car Rental Service
             </h1>
 
-            <p className="text-xl text-gray-600 mb-12 leading-relaxed">
-              Your journey begins with us - Comfortable, Reliable, and
-              Affordable
+            <p className="text-xl text-gray-600 dark:text-zinc-400 mb-12 leading-relaxed">
+              Your journey begins with us — Comfortable, Reliable, and Affordable
             </p>
 
             <div className="flex flex-wrap justify-center gap-4">
@@ -123,7 +118,7 @@ const LearnMore = () => {
                 whileTap={{ scale: 0.95 }}
                 onClick={() => navigate("/models")}
                 className="px-8 py-4 bg-orange-500 text-white rounded-lg font-medium 
-                         hover:bg-orange-600 transition-colors inline-flex items-center gap-2">
+                         hover:bg-orange-600 transition-colors inline-flex items-center gap-2 shadow-lg shadow-orange-500/20">
                 View Our Fleet
                 <ChevronRight className="w-5 h-5" />
               </motion.button>
@@ -131,8 +126,8 @@ const LearnMore = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => navigate("/contact")}
-                className="px-8 py-4 bg-white text-gray-800 rounded-lg font-medium 
-                         hover:bg-gray-50 transition-colors border border-gray-200">
+                className="px-8 py-4 bg-white dark:bg-zinc-800 text-gray-800 dark:text-zinc-100 rounded-lg font-medium 
+                         hover:bg-gray-50 dark:hover:bg-zinc-700 transition-all border border-gray-200 dark:border-zinc-700">
                 Contact Us
               </motion.button>
             </div>
@@ -141,7 +136,7 @@ const LearnMore = () => {
       </section>
 
       {/* Stats Section */}
-      <section className="pt-16 pb-16 bg-white relative overflow-hidden">
+      <section className="pt-16 pb-16 bg-white dark:bg-zinc-950/50 relative overflow-hidden transition-colors">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {benefits.map((stat, index) => (
@@ -150,11 +145,11 @@ const LearnMore = () => {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
-                className="bg-gray-50 p-6 rounded-lg text-center group hover:bg-orange-50 transition-colors">
+                className="bg-gray-50 dark:bg-zinc-900 p-6 rounded-lg text-center group hover:bg-orange-50 dark:hover:bg-orange-900/20 transition-all border border-transparent dark:border-zinc-800">
                 <h3 className="text-3xl font-bold text-orange-500 mb-2 group-hover:scale-110 transition-transform">
                   {stat.value}
                 </h3>
-                <p className="text-gray-600">{stat.label}</p>
+                <p className="text-gray-600 dark:text-zinc-400">{stat.label}</p>
               </motion.div>
             ))}
           </div>
@@ -167,12 +162,11 @@ const LearnMore = () => {
           <motion.div
             variants={fadeIn}
             initial="initial"
-            whileInView="whileInView"
+            whileInView="white"
             className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-4xl font-bold mb-4">Why Choose Us</h2>
-            <p className="text-gray-600">
-              We offer the best car rental experience with premium features and
-              services
+            <h2 className="text-4xl font-bold mb-4 dark:text-white">Why Choose Us</h2>
+            <p className="text-gray-600 dark:text-zinc-400">
+              We offer the best car rental experience with premium features and services
             </p>
           </motion.div>
 
@@ -183,12 +177,12 @@ const LearnMore = () => {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
-                className={`${feature.bgColor} rounded-xl p-8 hover:-translate-y-2 transition-transform`}>
+                className={`${feature.bgColor} rounded-xl p-8 hover:-translate-y-2 transition-all border border-transparent dark:border-zinc-800/50`}>
                 <div className="mb-6">
                   <feature.icon className={`w-12 h-12 ${feature.color}`} />
                 </div>
-                <h3 className="text-xl font-bold mb-4">{feature.title}</h3>
-                <p className="text-gray-600">{feature.description}</p>
+                <h3 className="text-xl font-bold mb-4 dark:text-white">{feature.title}</h3>
+                <p className="text-gray-600 dark:text-zinc-400">{feature.description}</p>
               </motion.div>
             ))}
           </div>
@@ -196,15 +190,15 @@ const LearnMore = () => {
       </section>
 
       {/* Process Section */}
-      <section className="py-20 bg-white relative overflow-hidden">
+      <section className="py-20 bg-white dark:bg-zinc-950/50 relative overflow-hidden transition-colors">
         <div className="container mx-auto px-4">
           <motion.div
             variants={fadeIn}
             initial="initial"
             whileInView="whileInView"
             className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-4xl font-bold mb-4">How It Works</h2>
-            <p className="text-gray-600">
+            <h2 className="text-4xl font-bold mb-4 dark:text-white">How It Works</h2>
+            <p className="text-gray-600 dark:text-zinc-400">
               Get started with our simple and streamlined booking process
             </p>
           </motion.div>
@@ -223,15 +217,15 @@ const LearnMore = () => {
                     background: `linear-gradient(to right, ${step.color})`,
                     opacity: 0.1,
                   }}></div>
-                <div className="relative bg-white rounded-xl p-8 border border-gray-100">
+                <div className="relative bg-white dark:bg-zinc-900 rounded-xl p-8 border border-gray-100 dark:border-zinc-800 transition-colors shadow-sm">
                   <div className="absolute -top-4 -right-4 w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center text-white font-bold">
                     {index + 1}
                   </div>
                   <div className="mb-6">
                     <step.icon className="w-12 h-12 text-orange-500" />
                   </div>
-                  <h3 className="text-xl font-bold mb-4">{step.title}</h3>
-                  <p className="text-gray-600">{step.description}</p>
+                  <h3 className="text-xl font-bold mb-4 dark:text-zinc-100">{step.title}</h3>
+                  <p className="text-gray-600 dark:text-zinc-400">{step.description}</p>
                 </div>
               </motion.div>
             ))}
@@ -246,8 +240,8 @@ const LearnMore = () => {
             variants={fadeIn}
             initial="initial"
             whileInView="whileInView"
-            className="relative bg-gradient-to-r from-orange-500 to-orange-600 rounded-2xl p-12 overflow-hidden">
-            <div className="absolute inset-0 bg-grid-pattern opacity-10"></div>
+            className="relative bg-gradient-to-r from-orange-500 to-orange-600 rounded-2xl p-12 overflow-hidden shadow-2xl shadow-orange-500/20">
+            <div className="absolute inset-0 bg-grid-pattern opacity-10 dark:opacity-5"></div>
             <div className="relative z-10 text-center text-white max-w-3xl mx-auto">
               <Zap className="w-12 h-12 mx-auto mb-6" />
               <h2 className="text-4xl font-bold mb-6">
@@ -259,9 +253,9 @@ const LearnMore = () => {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                onClick={() => navigate("/booking")}
-                className="px-8 py-4 bg-white text-orange-500 rounded-lg font-medium 
-                         hover:bg-orange-50 transition-colors inline-flex items-center gap-2">
+                onClick={() => navigate("/booking/1")}
+                className="px-8 py-4 bg-white text-orange-500 rounded-lg font-bold 
+                         hover:bg-orange-50 transition-colors inline-flex items-center gap-2 shadow-xl">
                 <Car className="w-5 h-5" />
                 Book a Ride Now
               </motion.button>

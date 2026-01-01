@@ -3,7 +3,7 @@ import { AnimatePresence } from "framer-motion";
 import Home from "./Pages/Home";
 import About from "./Pages/About";
 import Models from "./Pages/Models";
-import Services from "./Pages/Services"
+import Services from "./Pages/Services";
 import Testimonials from "./Pages/Testimonials";
 import Booking from "./Pages/Booking";
 import Team from "./Pages/Team";
@@ -12,15 +12,13 @@ import Errorpage from "./Pages/Errorpage";
 import Login from "./components/Auth/Login";
 import Register from "./components/Auth/Register";
 import LearnMore from "./Pages/LearnMore";
-import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import { MainLayout } from "./layout/MainLayout";
 import { AuthLayout } from "./layout/AuthLayout";
 import { MouseTrail } from "@stichiboi/react-elegant-mouse-trail";
 
-
 function App() {
   return (
-    <>
+    <div className="min-h-screen bg-white text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100 transition-colors duration-300">
       <MouseTrail strokeColor="#F97316" lineWidthStart={30} />
       <AnimatePresence mode="wait">
         <Routes>
@@ -41,18 +39,11 @@ function App() {
             <Route path="/services" element={<Services />} />
             <Route path="/learnmore" element={<LearnMore />} />
             <Route path="*" element={<Errorpage />} />
-            <Route
-              path="/booking/:id"
-              element={
-                // <ProtectedRoute>
-                <Booking />
-                // </ProtectedRoute>
-              }
-            />
+            <Route path="/booking/:id" element={<Booking />} />
           </Route>
         </Routes>
       </AnimatePresence>
-    </>
+    </div>
   );
 }
 

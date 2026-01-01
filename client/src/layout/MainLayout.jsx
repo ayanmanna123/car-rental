@@ -1,18 +1,15 @@
-import React from "react";
-import Navbar from "../components/default/Navbar";
-import Footer from "../components/default/Footer";
 import { Outlet } from "react-router-dom";
+import Navbar from "../components/default/Navbar"; // Adjust path if needed
+import Footer from "../components/default/Footer";
 
-const MainLayout = () => {
+export const MainLayout = () => {
   return (
-    <div className="min-h-screen w-full flex flex-col bg-white">
+    <div className="min-h-screen bg-white text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100 transition-colors duration-300">
       <Navbar />
-      <main className="flex-grow">
+      <main>
         <Outlet />
       </main>
       <Footer />
     </div>
   );
 };
-
-export { MainLayout };

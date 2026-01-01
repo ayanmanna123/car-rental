@@ -67,26 +67,26 @@ const Testimonials = () => {
     {
       title: "Exceptional Service",
       count: 2481,
-      color: "text-green-500",
-      bgColor: "bg-green-50",
+      color: "text-green-500 dark:text-green-400",
+      bgColor: "bg-green-50 dark:bg-green-900/20",
     },
     {
       title: "Clean Vehicles",
       count: 1938,
-      color: "text-blue-500",
-      bgColor: "bg-blue-50",
+      color: "text-blue-500 dark:text-blue-400",
+      bgColor: "bg-blue-50 dark:bg-blue-900/20",
     },
     {
       title: "Easy Booking",
       count: 1756,
-      color: "text-purple-500",
-      bgColor: "bg-purple-50",
+      color: "text-purple-500 dark:text-purple-400",
+      bgColor: "bg-purple-50 dark:bg-purple-900/20",
     },
     {
       title: "Great Value",
       count: 1542,
-      color: "text-orange-500",
-      bgColor: "bg-orange-50",
+      color: "text-orange-500 dark:text-orange-400",
+      bgColor: "bg-orange-50 dark:bg-orange-900/20",
     },
   ];
 
@@ -102,15 +102,14 @@ const Testimonials = () => {
     return [...Array(5)].map((_, index) => (
       <Star
         key={index}
-        className={`w-5 h-5 ${
-          index < rating ? "text-yellow-400 fill-yellow-400" : "text-gray-300"
-        }`}
+        className={`w-5 h-5 ${index < rating ? "text-yellow-400 fill-yellow-400" : "text-gray-300 dark:text-zinc-700"
+          }`}
       />
     ));
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-gray-50 pt-8">
+    <div className="min-h-screen bg-gradient-to-b from-white to-gray-50 dark:from-zinc-950 dark:to-zinc-900 pt-8 transition-colors duration-300">
       {/* Hero Section */}
       <section className="pt-16 pb-4">
         <div className="container mx-auto px-4">
@@ -119,16 +118,16 @@ const Testimonials = () => {
             initial="initial"
             whileInView="whileInView"
             className="text-center max-w-3xl mx-auto">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-orange-100 rounded-full mb-6">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-orange-100 dark:bg-orange-900/30 rounded-full mb-6 transition-colors">
               <Quote className="w-5 h-5 text-orange-500" />
-              <span className="text-orange-700 font-medium">
+              <span className="text-orange-700 dark:text-orange-400 font-medium">
                 Customer Stories
               </span>
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">
+            <h1 className="text-4xl md:text-5xl font-bold mb-6 dark:text-white">
               What Our <span className="text-orange-500">Customers</span> Say
             </h1>
-            <p className="text-gray-600 text-lg leading-relaxed">
+            <p className="text-gray-600 dark:text-zinc-400 text-lg leading-relaxed">
               Discover why thousands of customers choose us for their car rental
               needs and trust us with their travel experiences.
             </p>
@@ -137,7 +136,7 @@ const Testimonials = () => {
       </section>
 
       {/* Stats Section */}
-      <section className="py-12 bg-white">
+      <section className="py-12 bg-white dark:bg-zinc-950/50">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {stats.map((stat, index) => (
@@ -146,14 +145,14 @@ const Testimonials = () => {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
-                className="text-center p-6 rounded-lg bg-gray-50 group hover:bg-orange-50 transition-colors">
+                className="text-center p-6 rounded-lg bg-gray-50 dark:bg-zinc-900 group hover:bg-orange-50 dark:hover:bg-orange-900/20 transition-all border border-transparent dark:border-zinc-800">
                 <div className="flex justify-center mb-4">
                   <stat.icon className="w-8 h-8 text-orange-500 group-hover:scale-110 transition-transform" />
                 </div>
-                <h3 className="text-3xl font-bold text-gray-900 mb-2">
+                <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
                   {stat.value}
                 </h3>
-                <p className="text-gray-600">{stat.label}</p>
+                <p className="text-gray-600 dark:text-zinc-400">{stat.label}</p>
               </motion.div>
             ))}
           </div>
@@ -169,33 +168,33 @@ const Testimonials = () => {
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -20 }}
-              className="bg-white rounded-2xl p-8 md:p-12 shadow-sm">
+              className="bg-white dark:bg-zinc-900 rounded-2xl p-8 md:p-12 shadow-sm border border-transparent dark:border-zinc-800 transition-colors">
               <div className="max-w-4xl mx-auto">
-                <div className="flex items-start gap-6 mb-8">
-                  <div className="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center flex-shrink-0">
-                    <User className="w-8 h-8 text-gray-500" />
+                <div className="flex flex-col sm:flex-row items-start gap-6 mb-8">
+                  <div className="w-16 h-16 rounded-full bg-gray-200 dark:bg-zinc-800 flex items-center justify-center flex-shrink-0">
+                    <User className="w-8 h-8 text-gray-500 dark:text-zinc-500" />
                   </div>
-                  <div>
-                    <div className="flex items-center gap-4 mb-2">
-                      <h3 className="text-xl font-semibold">
+                  <div className="flex-1">
+                    <div className="flex flex-wrap items-center gap-2 sm:gap-4 mb-2">
+                      <h3 className="text-xl font-semibold dark:text-white">
                         {testimonials[activeIndex].name}
                       </h3>
-                      <span className="text-gray-500">|</span>
-                      <span className="text-gray-600">
+                      <span className="text-gray-300 dark:text-zinc-700 hidden sm:inline">|</span>
+                      <span className="text-gray-600 dark:text-zinc-400">
                         {testimonials[activeIndex].role}
                       </span>
                     </div>
                     <div className="flex items-center gap-2 mb-4">
                       {renderStars(testimonials[activeIndex].rating)}
                     </div>
-                    <p className="text-gray-600 text-lg leading-relaxed mb-4">
-                      {testimonials[activeIndex].comment}
+                    <p className="text-gray-600 dark:text-zinc-300 text-lg leading-relaxed mb-4 italic">
+                      "{testimonials[activeIndex].comment}"
                     </p>
-                    <div className="flex items-center gap-4 text-sm text-gray-500">
-                      <span>
+                    <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-sm text-gray-500 dark:text-zinc-500">
+                      <span className="bg-gray-100 dark:bg-zinc-800 px-3 py-1 rounded-full">
                         Car Rented: {testimonials[activeIndex].carRented}
                       </span>
-                      <span>•</span>
+                      <span className="hidden sm:inline">•</span>
                       <span>{testimonials[activeIndex].date}</span>
                     </div>
                   </div>
@@ -209,14 +208,14 @@ const Testimonials = () => {
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 onClick={prevTestimonial}
-                className="p-2 rounded-full bg-white border border-gray-200 text-gray-600 hover:bg-orange-50 hover:border-orange-200 transition-colors">
+                className="p-3 rounded-full bg-white dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 text-gray-600 dark:text-zinc-400 hover:bg-orange-50 dark:hover:bg-orange-900/30 hover:border-orange-200 dark:hover:border-orange-900/50 transition-all shadow-sm">
                 <ChevronLeft className="w-6 h-6" />
               </motion.button>
               <motion.button
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 onClick={nextTestimonial}
-                className="p-2 rounded-full bg-white border border-gray-200 text-gray-600 hover:bg-orange-50 hover:border-orange-200 transition-colors">
+                className="p-3 rounded-full bg-white dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 text-gray-600 dark:text-zinc-400 hover:bg-orange-50 dark:hover:bg-orange-900/30 hover:border-orange-200 dark:hover:border-orange-900/50 transition-all shadow-sm">
                 <ChevronRight className="w-6 h-6" />
               </motion.button>
             </div>
@@ -225,17 +224,17 @@ const Testimonials = () => {
       </section>
 
       {/* Review Highlights */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-white dark:bg-zinc-950/50 transition-colors">
         <div className="container mx-auto px-4">
           <motion.div
             variants={fadeIn}
             initial="initial"
             whileInView="whileInView"
             className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">
+            <h2 className="text-3xl font-bold mb-4 dark:text-white">
               What People Love About Us
             </h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
+            <p className="text-gray-600 dark:text-zinc-400 max-w-2xl mx-auto">
               See what aspects of our service customers appreciate the most
             </p>
           </motion.div>
@@ -247,11 +246,11 @@ const Testimonials = () => {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
-                className={`${highlight.bgColor} rounded-lg p-6 text-center`}>
+                className={`${highlight.bgColor} rounded-xl p-6 text-center border border-transparent dark:border-zinc-800/50`}>
                 <h3 className={`text-2xl font-bold mb-2 ${highlight.color}`}>
                   {highlight.count.toLocaleString()}+
                 </h3>
-                <p className="text-gray-700">{highlight.title}</p>
+                <p className="text-gray-700 dark:text-zinc-300 font-medium">{highlight.title}</p>
               </motion.div>
             ))}
           </div>
@@ -265,19 +264,18 @@ const Testimonials = () => {
             variants={fadeIn}
             initial="initial"
             whileInView="whileInView"
-            className="bg-orange-500 rounded-2xl p-8 md:p-12 text-center text-white">
+            className="bg-orange-500 rounded-2xl p-8 md:p-12 text-center text-white shadow-xl shadow-orange-500/20">
             <h2 className="text-3xl font-bold mb-4">
               Ready to Experience It Yourself?
             </h2>
-            <p className="max-w-2xl mx-auto mb-8 text-orange-100">
+            <p className="max-w-2xl mx-auto mb-8 text-orange-100 font-medium">
               Join thousands of satisfied customers and book your perfect rental
               car today.
             </p>
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="bg-white text-orange-500 px-8 py-3 rounded-lg font-medium 
-                       hover:bg-orange-50 transition-colors">
+              className="bg-white dark:bg-zinc-100 text-orange-500 px-8 py-3 rounded-lg font-bold hover:bg-orange-50 dark:hover:bg-white transition-all shadow-lg">
               Book Now
             </motion.button>
           </motion.div>

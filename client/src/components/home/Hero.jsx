@@ -40,7 +40,7 @@ const Hero = () => {
   ];
 
   return (
-    <div className="container flex flex-col h-auto p-8 sm:p-16 relative w-full mx-auto">
+    <div className="container flex flex-col h-auto p-8 sm:p-16 relative w-full mx-auto transition-colors duration-300">
       <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
         {/* Left Content */}
         <motion.div
@@ -48,19 +48,21 @@ const Hero = () => {
           initial="initial"
           animate="animate"
           variants={fadeIn}>
-          <div className="inline-flex items-center gap-2 mb-6 px-4 py-2 bg-orange-100 rounded-full">
+
+          {/* Top Badge */}
+          <div className="inline-flex items-center gap-2 mb-6 px-4 py-2 bg-orange-100 dark:bg-orange-900/30 rounded-full transition-colors">
             <Star className="text-orange-500 w-5 h-5" />
-            <span className="text-orange-700 font-medium text-sm">
+            <span className="text-orange-700 dark:text-orange-400 font-medium text-sm">
               Premium Car Rental Service
             </span>
           </div>
 
-          <h1 className="text-5xl md:text-6xl font-bold leading-tight mb-6">
+          <h1 className="text-5xl md:text-6xl font-bold leading-tight mb-6 text-gray-900 dark:text-white transition-colors">
             Save <span className="text-orange-500">big</span> with our
             <span className="text-orange-500"> car rental</span>
           </h1>
 
-          <p className="text-gray-600 text-lg mb-8 leading-relaxed">
+          <p className="text-gray-600 dark:text-zinc-400 text-lg mb-8 leading-relaxed transition-colors">
             Experience the freedom of the open road with our premium car rental
             service. Unbeatable prices, unlimited miles, and flexible pick-up
             options.
@@ -72,8 +74,8 @@ const Hero = () => {
               whileTap={{ scale: 0.95 }}
               onClick={() => navigate("/models")}
               className="flex items-center gap-2 px-8 py-4 bg-orange-500 text-white rounded-lg
-                          hover:bg-orange-600 transition-all">
-              <span className="font-medium">Book Ride</span>
+                          hover:bg-orange-600 transition-all shadow-lg shadow-orange-500/20">
+              <span className="font-bold">Book Ride</span>
               <CheckCircle className="w-5 h-5" />
             </motion.button>
 
@@ -81,51 +83,51 @@ const Hero = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => navigate("/learnmore")}
-              className="flex items-center gap-2 px-8 py-4 bg-gray-900 text-white rounded-lg
-                         hover:bg-gray-800 transition-all">
-              <span className="font-medium">Learn More</span>
+              className="flex items-center gap-2 px-8 py-4 bg-gray-900 dark:bg-zinc-800 text-white rounded-lg
+                         hover:bg-gray-800 dark:hover:bg-zinc-700 transition-all border border-transparent dark:border-zinc-700 shadow-lg">
+              <span className="font-bold">Learn More</span>
               <ChevronRight className="w-5 h-5" />
             </motion.button>
           </div>
 
-          {/* Features */}
+          {/* Icon Features Section */}
           <div className="flex flex-wrap gap-6 mb-12">
             {features.map((feature, index) => (
               <div key={index} className="flex items-center gap-2">
-                <div className="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center">
+                <div className="w-10 h-10 rounded-full bg-orange-100 dark:bg-orange-900/20 flex items-center justify-center transition-colors">
                   <feature.icon className="w-5 h-5 text-orange-500" />
                 </div>
-                <span className="text-gray-700 font-medium">
+                <span className="text-gray-700 dark:text-zinc-300 font-medium transition-colors">
                   {feature.text}
                 </span>
               </div>
             ))}
           </div>
 
-          {/* Stats */}
+          {/* Stats Counters */}
           <div className="flex flex-wrap gap-12">
             {stats.map((stat, index) => (
               <div key={index} className="text-center">
                 <h3 className="text-4xl font-bold text-orange-500">
                   {stat.value}
                 </h3>
-                <p className="text-gray-600 font-medium">{stat.label}</p>
+                <p className="text-gray-600 dark:text-zinc-500 font-medium transition-colors">{stat.label}</p>
               </div>
             ))}
           </div>
         </motion.div>
 
-        {/* Right Image */}
+        {/* Right Section: Image & Floating Cards */}
         <motion.div
           className="flex-1 relative"
           initial="initial"
           animate="animate"
           variants={slideIn}>
           <div className="relative">
-            {/* Background Gradient */}
+            {/* Background Gradient Glow - Adjusted for Dark Mode visibility */}
             <div
-              className="absolute inset-0 bg-gradient-to-br from-orange-500/20 to-orange-500/5 
-                          rounded-full filter blur-3xl transform -rotate-12"></div>
+              className="absolute inset-0 bg-gradient-to-br from-orange-500/30 to-orange-500/5 
+                          rounded-full filter blur-3xl transform -rotate-12 pointer-events-none"></div>
 
             <img
               src={assets.car}
@@ -135,28 +137,30 @@ const Hero = () => {
             />
           </div>
 
-          {/* Floating Cards */}
+          {/* Floating Card: Latest Models */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
-            className="absolute bottom-4 -right-4 bg-white p-6 rounded-lg shadow-xl">
+            className="absolute bottom-4 -right-4 bg-white dark:bg-zinc-900 p-6 rounded-xl shadow-2xl border border-transparent dark:border-zinc-800 transition-all">
             <div className="flex items-center gap-3">
-              <Car className="text-orange-500 w-8 h-8" />
+              <div className="p-2 bg-orange-100 dark:bg-orange-900/20 rounded-lg">
+                <Car className="text-orange-500 w-8 h-8" />
+              </div>
               <div>
-                <p className="font-semibold text-lg">Latest Models</p>
-                <p className="text-gray-500">Premium Selection</p>
+                <p className="font-bold text-lg dark:text-white">Latest Models</p>
+                <p className="text-gray-500 dark:text-zinc-400">Premium Selection</p>
               </div>
             </div>
           </motion.div>
 
-          {/* Additional Floating Badge */}
+          {/* Floating Badge: Best Prices */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.7 }}
-            className="hidden lg:block absolute top-4 -left-4 bg-orange-500 text-white px-6 py-3 rounded-full shadow-lg">
-            <p className="font-semibold">Best Prices Guaranteed</p>
+            className="hidden lg:block absolute top-4 -left-4 bg-orange-500 text-white px-6 py-3 rounded-full shadow-lg font-bold">
+            Best Prices Guaranteed
           </motion.div>
         </motion.div>
       </div>
