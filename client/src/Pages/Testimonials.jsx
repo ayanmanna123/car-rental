@@ -118,12 +118,16 @@ const Testimonials = () => {
             initial="initial"
             whileInView="whileInView"
             className="text-center max-w-3xl mx-auto">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-orange-100 dark:bg-orange-900/30 rounded-full mb-6 transition-colors">
-              <Quote className="w-5 h-5 text-orange-500" />
-              <span className="text-orange-700 dark:text-orange-400 font-medium">
-                Customer Stories
-              </span>
-            </div>
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              className="inline-flex items-center gap-2 px-4 py-2 bg-orange-100 dark:bg-orange-900/30 rounded-full mb-6
+                         cursor-pointer hover:bg-orange-200 dark:hover:bg-orange-800 transition-colors duration-200"
+              >
+            <Quote className="w-5 h-5 text-orange-500" />
+            <span className="text-orange-700 dark:text-orange-400 font-medium">
+              Customer Stories
+            </span>
+            </motion.div>
             <h1 className="text-4xl md:text-5xl font-bold mb-6 dark:text-white">
               What Our <span className="text-orange-500">Customers</span> Say
             </h1>
