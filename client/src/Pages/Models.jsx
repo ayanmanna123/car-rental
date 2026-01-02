@@ -28,7 +28,7 @@ const cars = [
     name: "BMW X5",
     category: "SUV",
     price: 129,
-    image: "https://d2m3nfprmhqjvd.cloudfront.net/blog/20220825223325/Luxury-SUVs.jpg",
+    image: "https://www.carhelpcanada.com/wp-content/uploads/2019/02/2019-BMW-X5-2.jpg",
     features: { seats: "7", luggage: "5", fuel: "Hybrid" },
     rating: 4.8,
   },
