@@ -17,23 +17,28 @@ import {
 } from "lucide-react";
 
 const Footer = () => {
+  // State to manage newsletter email input
   const [email, setEmail] = useState("");
+  // State to check if user has subscribed
   const [isSubscribed, setIsSubscribed] = useState(false);
 
+  // Framer-motion animation variants for fade in and slide up
   const fadeInUp = {
     initial: { opacity: 0, y: 20 },
     whileInView: { opacity: 1, y: 0 },
     viewport: { once: true },
   };
 
+  // Handle newsletter form submission
   const handleSubmit = (e) => {
     e.preventDefault();
     if (email) {
-      setIsSubscribed(true);
-      setEmail("");
+      setIsSubscribed(true); // Show success icon
+      setEmail(""); // Clear input field
     }
   };
 
+  // Social media links and hover colors
   const socialLinks = [
     { Icon: Facebook, href: "#", color: "hover:bg-blue-600" },
     { Icon: Twitter, href: "#", color: "hover:bg-blue-400" },
@@ -41,6 +46,7 @@ const Footer = () => {
     { Icon: Linkedin, href: "#", color: "hover:bg-blue-700" },
   ];
 
+  // Footer quick navigation links
   const quickLinks = [
     { label: "Home", path: "/" },
     { label: "About Us", path: "/about" },
@@ -49,6 +55,7 @@ const Footer = () => {
     { label: "Contact Us", path: "/contact" },
   ];
 
+  // Working hours information
   const workingHours = [
     { day: "Mon - Fri", hours: "9:00AM - 9:00PM" },
     { day: "Saturday", hours: "9:00AM - 7:00PM" },
@@ -62,7 +69,8 @@ const Footer = () => {
 
       <div className="container mx-auto px-4 relative">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
-          {/* Company Info */}
+          
+          {/* -------------------- Company Info -------------------- */}
           <motion.div
             variants={fadeInUp}
             initial="initial"
@@ -81,6 +89,7 @@ const Footer = () => {
               with unlimited miles and flexible pick-up options at unbeatable
               prices.
             </p>
+            {/* Social Media Icons */}
             <div className="flex space-x-4">
               {socialLinks.map(({ Icon, href, color }, index) => (
                 <motion.a
@@ -98,7 +107,7 @@ const Footer = () => {
             </div>
           </motion.div>
 
-          {/* Quick Links */}
+          {/* -------------------- Quick Links -------------------- */}
           <motion.div
             variants={fadeInUp}
             initial="initial"
@@ -109,8 +118,10 @@ const Footer = () => {
             <ul className="space-y-3">
               {quickLinks.map((link, index) => (
                 <li key={index}>
+                  {/* Link scrolls to top on click */}
                   <Link
                     to={link.path}
+                    onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
                     className="group hover:text-orange-500 transition-colors inline-flex items-center space-x-2">
                     <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
                     <span>{link.label}</span>
@@ -120,7 +131,7 @@ const Footer = () => {
             </ul>
           </motion.div>
 
-          {/* Working Hours */}
+          {/* -------------------- Working Hours -------------------- */}
           <motion.div
             variants={fadeInUp}
             initial="initial"
@@ -141,6 +152,7 @@ const Footer = () => {
                 </li>
               ))}
             </ul>
+            {/* Contact Info */}
             <div className="space-y-4 pt-4 border-t border-gray-200 dark:border-zinc-800">
               <div className="flex items-center space-x-3 group cursor-pointer">
                 <Phone className="w-5 h-5 text-orange-500 group-hover:rotate-12 transition-transform" />
@@ -161,7 +173,7 @@ const Footer = () => {
             </div>
           </motion.div>
 
-          {/* Newsletter */}
+          {/* -------------------- Newsletter -------------------- */}
           <motion.div
             variants={fadeInUp}
             initial="initial"
@@ -196,6 +208,7 @@ const Footer = () => {
               </div>
             </form>
 
+            {/* Special Offer Banner */}
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
@@ -212,7 +225,7 @@ const Footer = () => {
           </motion.div>
         </div>
 
-        {/* Bottom Bar */}
+        {/* -------------------- Bottom Bar -------------------- */}
         <motion.div
           variants={fadeInUp}
           initial="initial"
