@@ -15,6 +15,7 @@ import LearnMore from "./Pages/LearnMore";
 import { MainLayout } from "./layout/MainLayout";
 import { AuthLayout } from "./layout/AuthLayout";
 import { MouseTrail } from "@stichiboi/react-elegant-mouse-trail";
+import Profile from "./Pages/Profile";
 
 function App() {
   return (
@@ -31,7 +32,8 @@ function App() {
           {/* Main routes with Navbar and Footer */}
           <Route element={<MainLayout />}>
             <Route index path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
+            <Route path="/about" element={<About />} /> 
+            <Route path="/profile" element={<Profile />} /> 
             <Route path="/models" element={<Models />} />
             <Route path="/testimonials" element={<Testimonials />} />
             <Route path="/team" element={<Team />} />
