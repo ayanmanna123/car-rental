@@ -133,13 +133,23 @@ const LearnMore = () => {
                 <ChevronRight className="w-5 h-5" />
               </motion.button>
               <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => navigate("/contact")}
-                className="px-8 py-4 bg-white dark:bg-zinc-800 text-gray-800 dark:text-zinc-100 rounded-lg font-medium 
-                         hover:bg-gray-50 dark:hover:bg-zinc-700 transition-all border border-gray-200 dark:border-zinc-700">
-                Contact Us
-              </motion.button>
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => navigate("/contact")}
+                  className="
+                    px-8 py-4 rounded-lg font-medium
+                    bg-transparent
+                    text-orange-500
+                    border border-orange-500/50
+                    transition-all duration-300
+                    hover:border-orange-500
+                    hover:bg-orange-500/5
+                    hover:shadow-[0_0_20px_rgba(249,115,22,0.35)]
+                    "
+                  >
+                    Contact Us
+      </motion.button>
+
             </div>
           </motion.div>
         </div>
