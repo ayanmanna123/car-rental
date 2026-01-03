@@ -11,6 +11,7 @@ import {
   CreditCard,
 } from "lucide-react";
 import { assets } from "../../assets/assets";
+import Car3DModel from "./Car3DModel";
 
 const Hero = () => {
   const navigate = useNavigate();
@@ -41,10 +42,10 @@ const Hero = () => {
 
   return (
     <div className="container flex flex-col h-auto p-8 sm:p-16 relative w-full mx-auto transition-colors duration-300">
-      <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
+      <div className="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-12">
         {/* Left Content */}
         <motion.div
-          className="flex-1 max-w-xl"
+          className="flex-1 lg:max-w-lg"
           initial="initial"
           animate="animate"
           variants={fadeIn}>
@@ -58,8 +59,7 @@ const Hero = () => {
           </div>
 
           <h1 className="text-5xl md:text-6xl font-bold leading-tight mb-6 text-gray-900 dark:text-white transition-colors">
-            Save <span className="text-orange-500">big</span> with our
-            <span className="text-orange-500"> car rental</span>
+            Save <span className="text-orange-500">big</span> with our <span className="text-orange-500">car rental</span>
           </h1>
 
           <p className="text-gray-600 dark:text-zinc-400 text-lg mb-8 leading-relaxed transition-colors">
@@ -122,32 +122,22 @@ const Hero = () => {
           </div>
         </motion.div>
 
-        {/* Right Section: Image & Floating Cards */}
+
+        {/* Right Section: 3D Model & Floating Cards */}
         <motion.div
-          className="flex-1 relative"
+          className="flex-1 lg:flex-[1.2] relative w-full"
           initial="initial"
           animate="animate"
           variants={slideIn}>
-          <div className="relative">
-            {/* Background Gradient Glow - Adjusted for Dark Mode visibility */}
-            <div
-              className="absolute inset-0 bg-gradient-to-br from-orange-500/30 to-orange-500/5 
-                          rounded-full filter blur-3xl transform -rotate-12 pointer-events-none"></div>
-
-            <img
-              src={assets.car}
-              alt="Luxury Car"
-              className="relative z-10 w-full h-auto max-w-2xl mx-auto 
-                       transform hover:scale-105 transition-transform duration-500"
-            />
-          </div>
+          {/* 3D Car Model Component */}
+          <Car3DModel />
 
           {/* Floating Card: Latest Models */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
-           className="static lg:absolute lg:mt-6 lg:bottom-4 lg:-right-4 bg-white dark:bg-zinc-900 p-6 rounded-xl shadow-2xl border border-transparent dark:border-zinc-800 transition-all">
+           className="static lg:absolute lg:mt-6 lg:bottom-8 lg:-right-4 bg-white dark:bg-zinc-900 p-6 rounded-xl shadow-2xl border border-transparent dark:border-zinc-800 transition-all">
             <div className="flex items-center gap-3">
               <div className="p-2 bg-orange-100 dark:bg-orange-900/20 rounded-lg">
                 <Car className="text-orange-500 w-8 h-8" />
@@ -164,7 +154,7 @@ const Hero = () => {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.7 }}
-            className="hidden lg:block absolute top-4 -left-4 bg-orange-500 text-white px-6 py-3 rounded-full shadow-lg font-bold">
+            className="hidden lg:block absolute top-8 -left-4 bg-orange-500 text-white px-6 py-3 rounded-full shadow-lg font-bold">
             Best Prices Guaranteed
           </motion.div>
         </motion.div>
