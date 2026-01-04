@@ -2,7 +2,8 @@ import React, {
   useState,
   useMemo,
   useCallback,
-  Fragment
+  Fragment,
+  useEffect
 } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
@@ -128,7 +129,87 @@ const bySearch = (car, term) =>
   safeIncludes(car.name, term);
 
 /* =====================================================
-   UI Helpers (No logic change)
+   Skeleton Loader Component
+===================================================== */
+const SkeletonLoader = () => {
+  return (
+    <div className="animate-pulse">
+      <div className="bg-white dark:bg-zinc-900 rounded-2xl border border-gray-100 dark:border-zinc-800 overflow-hidden shadow-sm">
+        {/* Image skeleton */}
+        <div className="relative h-56 bg-gray-200 dark:bg-zinc-800"></div>
+
+        <div className="p-6">
+          {/* Top section skeleton */}
+          <div className="flex justify-between mb-4">
+            <div className="space-y-2">
+              <div className="h-4 w-16 bg-gray-200 dark:bg-zinc-800 rounded"></div>
+              <div className="h-6 w-32 bg-gray-200 dark:bg-zinc-800 rounded"></div>
+            </div>
+            <div className="text-right space-y-1">
+              <div className="h-7 w-20 bg-gray-200 dark:bg-zinc-800 rounded ml-auto"></div>
+              <div className="h-3 w-16 bg-gray-200 dark:bg-zinc-800 rounded ml-auto"></div>
+            </div>
+          </div>
+
+          {/* Features skeleton */}
+          <div className="grid grid-cols-3 gap-2 mb-6">
+            {[1, 2, 3].map((i) => (
+              <div key={i} className="flex flex-col items-center">
+                <div className="w-8 h-8 bg-gray-200 dark:bg-zinc-800 rounded-lg mb-1"></div>
+                <div className="h-3 w-12 bg-gray-200 dark:bg-zinc-800 rounded"></div>
+              </div>
+            ))}
+          </div>
+
+          {/* Rating skeleton */}
+          <div className="absolute top-4 right-4 w-16 h-6 bg-gray-200 dark:bg-zinc-800 rounded-full"></div>
+
+          {/* Button skeleton */}
+          <div className="h-12 bg-gray-200 dark:bg-zinc-800 rounded-xl"></div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+/* =====================================================
+   Skeleton Filter Bar
+===================================================== */
+const SkeletonFilterBar = () => {
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-12 animate-pulse">
+      {/* Search skeleton */}
+      <div className="relative md:col-span-2">
+        <div className="w-full h-12 bg-gray-200 dark:bg-zinc-800 rounded-xl"></div>
+      </div>
+      
+      {/* Price filter skeleton */}
+      <div>
+        <div className="h-4 w-32 bg-gray-200 dark:bg-zinc-800 rounded mb-2"></div>
+        <div className="h-2 bg-gray-200 dark:bg-zinc-800 rounded"></div>
+      </div>
+      
+      {/* Fuel filter skeleton */}
+      <div className="h-12 bg-gray-200 dark:bg-zinc-800 rounded-xl"></div>
+    </div>
+  );
+};
+
+/* =====================================================
+   Skeleton Categories
+===================================================== */
+const SkeletonCategories = () => {
+  return (
+    <div className="flex flex-wrap gap-2 mb-10 animate-pulse">
+      {[1, 2, 3, 4, 5].map((i) => (
+        <div key={i} className="w-20 h-9 bg-gray-200 dark:bg-zinc-800 rounded-full"></div>
+      ))}
+    </div>
+  );
+};
+
+/* =====================================================
+   UI Helpers
 ===================================================== */
 const FeatureItem = ({ icon: Icon, label }) => (
   <div className="flex flex-col items-center gap-1">
@@ -138,9 +219,15 @@ const FeatureItem = ({ icon: Icon, label }) => (
 );
 
 const EmptyState = () => (
-  <p className="text-center mt-20 text-gray-500">
-    No cars found matching your filters.
-  </p>
+  <div className="text-center mt-20 py-12">
+    <div className="text-5xl mb-4">🚗</div>
+    <p className="text-gray-600 dark:text-zinc-400 text-lg">
+      No cars found matching your filters.
+    </p>
+    <p className="text-gray-500 dark:text-zinc-500 text-sm mt-2">
+      Try adjusting your search criteria
+    </p>
+  </div>
 );
 
 /* =====================================================
@@ -158,6 +245,17 @@ const Models = () => {
   const [maxPrice, setMaxPrice] = useState(
     FILTER_DEFAULTS.PRICE
   );
+  const [isLoading, setIsLoading] = useState(true);
+
+  /* ---------------- Simulate Data Loading ---------------- */
+  useEffect(() => {
+    // Simulate API call to MongoDB
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1500); // 1.5 second loading simulation
+
+    return () => clearTimeout(timer);
+  }, []);
 
   /* ---------------- Callbacks ---------------- */
   const handleSearch = useCallback(
@@ -209,128 +307,159 @@ const Models = () => {
           </p>
         </div>
 
-        {/* FILTER BAR */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-12">
-          <div className="relative md:col-span-2">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-            <input
-              value={searchTerm}
-              onChange={handleSearch}
-              placeholder="Search car models..."
-              className="w-full pl-10 pr-4 py-3 bg-gray-50 dark:bg-zinc-900 border rounded-xl"
-            />
-          </div>
+        {/* FILTER BAR - Show skeleton while loading */}
+        {isLoading ? (
+          <SkeletonFilterBar />
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-12">
+            <div className="relative md:col-span-2">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+              <input
+                value={searchTerm}
+                onChange={handleSearch}
+                placeholder="Search car models..."
+                className="w-full pl-10 pr-4 py-3 bg-gray-50 dark:bg-zinc-900 border rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition"
+              />
+            </div>
 
-          <div>
-            <label className="text-sm flex items-center gap-2 mb-1">
-              <Filter className="w-4 h-4" />
-              Max Price (${maxPrice})
-            </label>
-            <input
-              type="range"
-              min={PRICE_CONFIG.MIN}
-              max={PRICE_CONFIG.MAX}
-              step={PRICE_CONFIG.STEP}
-              value={maxPrice}
-              onChange={handlePrice}
-              className="w-full"
-            />
-          </div>
+            <div>
+              <label className="text-sm flex items-center gap-2 mb-1 text-gray-600 dark:text-zinc-400">
+                <Filter className="w-4 h-4" />
+                Max Price (${maxPrice})
+              </label>
+              <input
+                type="range"
+                min={PRICE_CONFIG.MIN}
+                max={PRICE_CONFIG.MAX}
+                step={PRICE_CONFIG.STEP}
+                value={maxPrice}
+                onChange={handlePrice}
+                className="w-full h-2 bg-gray-200 dark:bg-zinc-800 rounded-lg appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-orange-500"
+              />
+            </div>
 
-          <select
-            value={fuelType}
-            onChange={handleFuel}
-            className="p-3 rounded-xl bg-gray-50 dark:bg-zinc-900 border"
-          >
-            {FUEL_OPTIONS.map((fuel) => (
-              <option key={fuel}>{fuel}</option>
+            <select
+              value={fuelType}
+              onChange={handleFuel}
+              className="p-3 rounded-xl bg-gray-50 dark:bg-zinc-900 border focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition"
+            >
+              {FUEL_OPTIONS.map((fuel) => (
+                <option key={fuel}>{fuel}</option>
+              ))}
+            </select>
+          </div>
+        )}
+
+        {/* CATEGORY FILTERS - Show skeleton while loading */}
+        {isLoading ? (
+          <SkeletonCategories />
+        ) : (
+          <div className="flex flex-wrap gap-2 mb-10">
+            {CATEGORY_OPTIONS.map((category) => (
+              <button
+                key={category}
+                onClick={() => handleCategory(category)}
+                className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-200
+                  ${activeCategory === category
+                    ? "bg-orange-500 text-white shadow-lg shadow-orange-500/20"
+                    : "bg-gray-100 dark:bg-zinc-900 hover:bg-gray-200 dark:hover:bg-zinc-800"
+                  }`}
+              >
+                {category}
+              </button>
             ))}
-          </select>
-        </div>
+          </div>
+        )}
 
-        {/* CATEGORY */}
-        <div className="flex flex-wrap gap-2 mb-10">
-          {CATEGORY_OPTIONS.map((category) => (
-            <button
-              key={category}
-              onClick={() => handleCategory(category)}
-              className={`px-5 py-2 rounded-full text-sm font-medium
-                ${activeCategory === category
-                  ? "bg-orange-500 text-white"
-                  : "bg-gray-100 dark:bg-zinc-900"
-                }`}
-            >
-              {category}
-            </button>
-          ))}
-        </div>
-
-        {/* GRID */}
+        {/* CAR GRID - Show skeleton while loading */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredCars.map((car, index) => (
-            <motion.div
-              key={car.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.08 }}
-              viewport={{ once: true }}
-              className="bg-white dark:bg-zinc-900 rounded-2xl border overflow-hidden"
-            >
-              <div className="relative h-56">
-                <img
-                  src={car.image}
-                  alt={car.name}
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute top-4 right-4 bg-white/90 dark:bg-zinc-900/90 px-3 py-1 rounded-full flex gap-1">
-                  <Star className="w-4 h-4 text-yellow-500 fill-yellow-500" />
-                  <span className="text-sm font-bold">{car.rating}</span>
-                </div>
-              </div>
-
-              <div className="p-6">
-                <div className="flex justify-between mb-4">
-                  <div>
-                    <span className="text-xs text-orange-500 font-bold uppercase">
-                      {car.category}
-                    </span>
-                    <h3 className="text-xl font-bold">{car.name}</h3>
-                  </div>
-                  <div className="text-right">
-                    <p className="text-2xl font-bold text-orange-500">
-                      ${car.price}
-                    </p>
-                    <p className="text-xs text-gray-400">per day</p>
+          {isLoading ? (
+            // Show skeleton loaders
+            Array.from({ length: 6 }).map((_, index) => (
+              <SkeletonLoader key={index} />
+            ))
+          ) : filteredCars.length > 0 ? (
+            // Show actual car cards
+            filteredCars.map((car, index) => (
+              <motion.div
+                key={car.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.08 }}
+                className="bg-white dark:bg-zinc-900 rounded-2xl border border-gray-100 dark:border-zinc-800 overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300"
+              >
+                <div className="relative h-56 overflow-hidden">
+                  <img
+                    src={car.image}
+                    alt={car.name}
+                    className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                  />
+                  <div className="absolute top-4 right-4 bg-white/90 dark:bg-zinc-900/90 backdrop-blur-sm px-3 py-1 rounded-full flex items-center gap-1">
+                    <Star className="w-4 h-4 text-yellow-500 fill-yellow-500" />
+                    <span className="text-sm font-bold">{car.rating}</span>
                   </div>
                 </div>
 
-                <div className="grid grid-cols-3 gap-2 mb-6 text-xs text-gray-500">
-                  <FeatureItem
-                    icon={Users}
-                    label={`${car.features.seats} Seats`}
-                  />
-                  <FeatureItem
-                    icon={Briefcase}
-                    label={`${car.features.luggage} Bags`}
-                  />
-                  <FeatureItem
-                    icon={Fuel}
-                    label={car.features.fuel}
-                  />
-                </div>
+                <div className="p-6">
+                  <div className="flex justify-between mb-4">
+                    <div>
+                      <span className="text-xs text-orange-500 font-bold uppercase tracking-wide">
+                        {car.category}
+                      </span>
+                      <h3 className="text-xl font-bold text-gray-800 dark:text-white mt-1">
+                        {car.name}
+                      </h3>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-2xl font-bold text-orange-500">
+                        ${car.price}
+                      </p>
+                      <p className="text-xs text-gray-400 dark:text-zinc-500">per day</p>
+                    </div>
+                  </div>
 
-                <Link
-                  to={`/booking/${car.id}`}
-                  className="flex items-center justify-center gap-2 py-3 bg-orange-500 text-white rounded-xl font-bold"
-                >
-                  Book Now <ChevronRight className="w-5 h-5" />
-                </Link>
-              </div>
-            </motion.div>
-          ))}
+                  <div className="grid grid-cols-3 gap-2 mb-6 text-xs text-gray-500 dark:text-zinc-400">
+                    <FeatureItem
+                      icon={Users}
+                      label={`${car.features.seats} Seats`}
+                    />
+                    <FeatureItem
+                      icon={Briefcase}
+                      label={`${car.features.luggage} Bags`}
+                    />
+                    <FeatureItem
+                      icon={Fuel}
+                      label={car.features.fuel}
+                    />
+                  </div>
+
+                  <Link
+                    to={`/booking/${car.id}`}
+                    className="flex items-center justify-center gap-2 py-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-xl font-bold hover:from-orange-600 hover:to-orange-700 transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0"
+                  >
+                    Book Now <ChevronRight className="w-5 h-5" />
+                  </Link>
+                </div>
+              </motion.div>
+            ))
+          ) : (
+            // Show empty state
+            <div className="col-span-3">
+              <EmptyState />
+            </div>
+          )}
         </div>
 
-        {filteredCars.length === 0 && <EmptyState />}
+        {/* Loading indicator during transition */}
+        {!isLoading && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="text-center mt-12 text-sm text-gray-500 dark:text-zinc-400"
+          >
+            Showing {filteredCars.length} car{filteredCars.length !== 1 ? 's' : ''}
+          </motion.div>
+        )}
       </div>
     </div>
   );
