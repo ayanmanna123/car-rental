@@ -265,7 +265,7 @@ const BookingMap = ({ location, setLocation }) => {
         {suggestions.length > 0 && (
           <ul
             ref={suggestionsRef}
-            className="absolute top-full left-0 right-0 bg-white dark:bg-zinc-800 border border-gray-300 dark:border-zinc-700 rounded-b-lg max-h-40 overflow-auto z-50 shadow-lg"
+            className="absolute top-full left-0 right-0 bg-white dark:bg-zinc-800 border border-gray-300 dark:border-zinc-700 rounded-b-lg max-h-40 overflow-auto shadow-lg z-[9999]"
           >
             {suggestions.map((s, idx) => (
               <li
