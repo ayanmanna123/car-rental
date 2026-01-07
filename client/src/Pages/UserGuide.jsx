@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import Navbar from "../components/default/Navbar"
 import {
   Car,
   Search,
@@ -49,8 +50,10 @@ const features = [
 
 const UserGuide = () => {
   return (
+    
     <div className="min-h-screen px-6 py-20 bg-gray-50 dark:bg-zinc-950">
       {/* Hero Section */}
+      <Navbar/>
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
