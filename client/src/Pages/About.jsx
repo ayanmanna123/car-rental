@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import {
   Star,
@@ -13,9 +13,24 @@ import {
   BarChart,
   PhoneCall,
   Calendar,
+  ArrowUp,
 } from "lucide-react";
 
 const About = () => {
+  const [showScrollTop, setShowScrollTop] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowScrollTop(window.scrollY > 300);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   const fadeIn = {
     initial: { opacity: 0, y: 20 },
     whileInView: { opacity: 1, y: 0 },
@@ -99,165 +114,256 @@ const About = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-gray-50 dark:from-zinc-950 dark:to-zinc-900 pt-8 transition-colors duration-300">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
       {/* Hero Section */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
+      <motion.div
+        className="relative bg-gradient-to-r from-orange-500 to-orange-600 text-white py-24 px-4 overflow-hidden"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8 }}
+      >
+        <div className="absolute inset-0 bg-black opacity-10"></div>
+        <div className="max-w-6xl mx-auto text-center relative z-10">
           <motion.div
-            variants={fadeIn}
-            initial="initial"
-            whileInView="whileInView"
-            className="text-center max-w-3xl mx-auto">
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              className="inline-flex items-center gap-2 px-4 py-2 bg-orange-100 dark:bg-orange-900/30 rounded-full mb-6
-                         cursor-pointer hover:bg-orange-200 dark:hover:bg-orange-800 transition-colors duration-200"
-              >
-            <Star className="w-5 h-5 text-orange-500" />
-            <span className="text-orange-700 dark:text-orange-400 font-medium">
-              About Us
-            </span>
-            </motion.div>
-            <h1 className="text-4xl md:text-5xl font-bold mb-6 dark:text-white">
-              Experience the Best in
-              <span className="text-orange-500"> Car Rentals</span>
-            </h1>
-            <p className="text-gray-600 dark:text-zinc-400 text-lg leading-relaxed">
-              Welcome to CarRental, where we redefine the car rental experience.
-              Our mission is to provide seamless, reliable, and affordable car
-              rentals for everyone, everywhere.
-            </p>
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ delay: 0.2, type: "spring" }}
+            className="inline-block mb-6"
+          >
+            <Star className="w-16 h-16 mx-auto" />
           </motion.div>
+          <motion.h1
+            className="text-5xl md:text-6xl font-bold mb-6"
+            initial={{ y: -50, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.3 }}
+          >
+            About Us
+          </motion.h1>
+          <motion.p
+            className="text-2xl md:text-3xl font-light mb-4"
+            initial={{ y: 50, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.4 }}
+          >
+            Experience the Best in Car Rentals
+          </motion.p>
+          <motion.p
+            className="text-lg md:text-xl max-w-3xl mx-auto opacity-90"
+            initial={{ y: 50, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.5 }}
+          >
+            Welcome to CarRental, where we redefine the car rental experience.
+            Our mission is to provide seamless, reliable, and affordable car
+            rentals for everyone, everywhere.
+          </motion.p>
         </div>
-      </section>
+      </motion.div>
 
       {/* Mission Section */}
-      <section className="py-16 bg-white dark:bg-zinc-950/50">
-        <div className="container mx-auto px-4">
-          <motion.div
-            variants={fadeIn}
-            initial="initial"
-            whileInView="whileInView"
-            className="grid md:grid-cols-2 gap-12 items-center">
-            <div>
-              <div className="flex items-center gap-2 mb-4">
-                <Award className="w-6 h-6 text-orange-500" />
-                <h2 className="text-3xl font-bold dark:text-white">Our Mission</h2>
-              </div>
-              <p className="text-gray-600 dark:text-zinc-400 leading-relaxed mb-6">
-                Our mission is to revolutionize the car rental industry by
-                providing a seamless, transparent, and customer-centric
-                experience. We believe in making car rentals accessible,
-                affordable, and stress-free for everyone.
-              </p>
-              <ul className="space-y-4">
-                {[
-                  "User-friendly booking process",
-                  "Transparent pricing with no hidden fees",
-                  "24/7 customer support",
-                  "Regular fleet maintenance and updates",
-                ].map((item, index) => (
-                  <motion.li
-                    key={index}
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.1 }}
-                    className="flex items-center gap-2">
-                    <CheckCircle className="w-5 h-5 text-orange-500 flex-shrink-0" />
-                    <span className="text-gray-700 dark:text-zinc-300">{item}</span>
-                  </motion.li>
-                ))}
-              </ul>
+      <motion.div
+        className="max-w-6xl mx-auto px-4 py-20"
+        {...fadeIn}
+        transition={{ delay: 0.2 }}
+      >
+        <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div>
+            <div className="flex items-center mb-6">
+              <Award className="w-12 h-12 text-orange-500 mr-4" />
+              <h2 className="text-4xl font-bold text-gray-800 dark:text-white">
+                Our Mission
+              </h2>
             </div>
-            <div className="grid grid-cols-2 gap-4">
-              {stats.map((stat, index) => (
+            <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
+              Our mission is to revolutionize the car rental industry by
+              providing a seamless, transparent, and customer-centric
+              experience. We believe in making car rentals accessible,
+              affordable, and stress-free for everyone.
+            </p>
+            <div className="space-y-4">
+              {[
+                "User-friendly booking process",
+                "Transparent pricing with no hidden fees",
+                "24/7 customer support",
+                "Regular fleet maintenance and updates",
+              ].map((item, index) => (
                 <motion.div
                   key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
+                  className="flex items-start"
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
-                  className="bg-gray-50 dark:bg-zinc-900 p-6 rounded-lg text-center group hover:bg-orange-50 dark:hover:bg-orange-900/20 border border-transparent dark:border-zinc-800 transition-all">
-                  <h3 className="text-3xl font-bold text-orange-500 mb-2 group-hover:scale-110 transition-transform">
-                    {stat.value}
-                  </h3>
-                  <p className="text-gray-600 dark:text-zinc-400">{stat.label}</p>
+                >
+                  <CheckCircle className="w-6 h-6 text-green-500 mr-3 flex-shrink-0 mt-1" />
+                  <span className="text-gray-700 dark:text-gray-300">
+                    {item}
+                  </span>
                 </motion.div>
               ))}
             </div>
+          </div>
+          <motion.div
+            className="grid grid-cols-2 gap-6"
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            {stats.map((stat, index) => (
+              <motion.div
+                key={index}
+                className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg text-center"
+                whileHover={{ y: -10, shadow: "xl" }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
+                <div className="text-4xl font-bold text-orange-500 mb-2">
+                  {stat.value}
+                </div>
+                <div className="text-gray-600 dark:text-gray-400">
+                  {stat.label}
+                </div>
+              </motion.div>
+            ))}
           </motion.div>
         </div>
-      </section>
+      </motion.div>
 
       {/* Basic Features Section */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <motion.div
-            variants={fadeIn}
-            initial="initial"
-            whileInView="whileInView"
-            className="text-center mb-12">
-            <div className="flex items-center justify-center gap-2 mb-4">
-              <Settings className="w-6 h-6 text-orange-500" />
-              <h2 className="text-3xl font-bold dark:text-white">Key Features</h2>
-            </div>
-            <p className="text-gray-600 dark:text-zinc-400 max-w-2xl mx-auto">
+      <motion.div
+        className="bg-white dark:bg-gray-800 py-20 px-4"
+        {...fadeIn}
+        transition={{ delay: 0.3 }}
+      >
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-16">
+            <motion.h2
+              className="text-4xl md:text-5xl font-bold text-gray-800 dark:text-white mb-4"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              Key Features
+            </motion.h2>
+            <motion.p
+              className="text-xl text-gray-600 dark:text-gray-400"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+            >
               Discover what makes us the preferred choice for car rentals
-            </p>
-          </motion.div>
+            </motion.p>
+          </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {featureCards.map((feature, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
+                className="relative group"
+                initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className={`${feature.bgColor} rounded-lg p-6 hover:scale-105 transition-transform border border-transparent dark:border-zinc-800/50`}>
-                <feature.icon className={`w-8 h-8 ${feature.color} mb-4`} />
-                <h3 className="text-xl font-semibold mb-2 dark:text-zinc-100">{feature.title}</h3>
-                <p className="text-gray-600 dark:text-zinc-400">{feature.description}</p>
+                whileHover={{ y: -10 }}
+              >
+                <div className="bg-gray-50 dark:bg-gray-900 p-8 rounded-2xl shadow-lg h-full transition-all duration-300 group-hover:shadow-2xl">
+                  <div
+                    className={`${feature.bgColor} w-16 h-16 rounded-full flex items-center justify-center mb-6`}
+                  >
+                    <feature.icon className={`w-8 h-8 ${feature.color}`} />
+                  </div>
+                  <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-3">
+                    {feature.title}
+                  </h3>
+                  <p className="text-gray-600 dark:text-gray-400">
+                    {feature.description}
+                  </p>
+                </div>
               </motion.div>
             ))}
           </div>
-
-          {/* Advanced Features */}
-          <motion.div
-            variants={fadeIn}
-            initial="initial"
-            whileInView="whileInView"
-            className="mt-20">
-            <div className="text-center mb-12">
-              <h3 className="text-2xl font-bold mb-4 dark:text-white">Advanced Features</h3>
-              <p className="text-gray-600 dark:text-zinc-400 max-w-2xl mx-auto">
-                Our application is packed with powerful features to ensure a
-                smooth car rental experience
-              </p>
-            </div>
-
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {advancedFeatures.map((feature, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  className="bg-white dark:bg-zinc-900 rounded-xl p-6 border border-gray-100 dark:border-zinc-800 hover:border-orange-200 dark:hover:border-orange-500/50 
-                           transition-all hover:-translate-y-1 group">
-                  <div
-                    className={`${feature.bgColor} w-12 h-12 rounded-lg flex items-center justify-center 
-                                mb-4 group-hover:scale-110 transition-transform`}>
-                    <feature.icon className={`w-6 h-6 ${feature.color}`} />
-                  </div>
-                  <h3 className="text-xl font-semibold mb-2 dark:text-zinc-100">
-                    {feature.title}
-                  </h3>
-                  <p className="text-gray-600 dark:text-zinc-400">{feature.description}</p>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
         </div>
-      </section>
+      </motion.div>
+
+      {/* Advanced Features */}
+      <motion.div
+        className="max-w-6xl mx-auto px-4 py-20"
+        {...fadeIn}
+        transition={{ delay: 0.4 }}
+      >
+        <div className="text-center mb-16">
+          <motion.div
+            className="inline-block mb-6"
+            initial={{ scale: 0 }}
+            whileInView={{ scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ type: "spring" }}
+          >
+            <Settings className="w-12 h-12 text-orange-500 mx-auto" />
+          </motion.div>
+          <motion.h2
+            className="text-4xl md:text-5xl font-bold text-gray-800 dark:text-white mb-4"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            Advanced Features
+          </motion.h2>
+          <motion.p
+            className="text-xl text-gray-600 dark:text-gray-400"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+          >
+            Our application is packed with powerful features to ensure a smooth
+            car rental experience
+          </motion.p>
+        </div>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {advancedFeatures.map((feature, index) => (
+            <motion.div
+              key={index}
+              className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300"
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1 }}
+              whileHover={{ y: -10 }}
+            >
+              <div
+                className={`${feature.bgColor} w-14 h-14 rounded-lg flex items-center justify-center mb-6`}
+              >
+                <feature.icon className={`w-7 h-7 ${feature.color}`} />
+              </div>
+              <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-3">
+                {feature.title}
+              </h3>
+              <p className="text-gray-600 dark:text-gray-400">
+                {feature.description}
+              </p>
+            </motion.div>
+          ))}
+        </div>
+      </motion.div>
+
+      {/* Scroll to Top Button */}
+      {showScrollTop && (
+        <motion.button
+          initial={{ opacity: 0, scale: 0 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0 }}
+          onClick={scrollToTop}
+          className="fixed bottom-20 right-4 z-50 bg-gradient-to-r from-orange-500 to-orange-600 text-white p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110"
+          whileHover={{ y: -5 }}
+          whileTap={{ scale: 0.9 }}
+        >
+          <ArrowUp size={24} />
+        </motion.button>
+      )}
     </div>
   );
 };
